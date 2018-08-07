@@ -30,7 +30,5 @@ int main(void) {
 
   printf("%d", sum);
 
-  aaa
-
   return 0;
 }
