@@ -1,26 +1,42 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int main(void) {
+int** newMatriz(int tam){
+  int **matriz = malloc(tam * sizeof(int));
+  for(int i = 0; i < tam; i++){
+    matriz[i] = malloc(tam * sizeof(int));
+  }
+
+  return matriz;
+}
+
+int main(){
   int tam;
   scanf("%d", &tam);
 
-  //Criar matriz
-  //Ler dados
+  int **matriz;
+  matriz = newMatriz(tam);
 
-  int matriz[4][4] = {0, -2, -7, 0, 9, 2, -6, 2, -4, 1, -4, 1, -1, 8, 0, -2};
+  for(int i = 0; i < tam; i++){                 //Inicialização da matriz
+    for(int j = 0; j < tam; j++){
+      scanf("%d", &matriz[i][j]);
+    }
+  }
 
-  int sum = -99999;
-  for(int i = 0; i < tam; i++){
-    for(int iniLinha = 0; iniLinha < tam - i; iniLinha++){
-      for(int j = 0; j < tam; j++){
-        for(int iniColuna = 0; iniColuna < tam - j; iniColuna++){
+  int sum = -999999;
+  for(int li = 0; li < tam; li++){              //Linha inicial do retangulo
+    for(int lf = li; lf < tam; lf++){           //Linha final do retangulo
+      for(int ci = 0; ci < tam; ci++){          //Coluna inicial do retangulo
+        for(int cf = ci; cf < tam; cf++){       //Coluna final do retangulo
           int aux = 0;
-          for(int k = iniLinha; k <= i; k++){
-            for(int l = iniColuna; l <= j; l++){
-              aux = aux + matriz[k][l];
+
+          for(int i = li; i <= lf; i++){        //Percorrer retangulo formado e achar a soma dos elementos
+            for(int j = ci; j <= cf; j++){
+                aux = aux + matriz[i][j];
             }
           }
-          if(sum < aux){
+
+          if(aux > sum){
             sum = aux;
           }
         }
@@ -28,7 +44,5 @@ int main(void) {
     }
   }
 
-  printf("%d", sum);
-
-  return 0;
+  printf("%d\n", sum);
 }
