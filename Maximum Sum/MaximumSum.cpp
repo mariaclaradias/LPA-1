@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 int** newMatriz(int tam){
-  int **matriz = malloc(tam * sizeof(int));
+  int **matriz = new int*[tam];
   for(int i = 0; i < tam; i++){
-    matriz[i] = malloc(tam * sizeof(int));
+    matriz[i] = new int[tam];
   }
 
   return matriz;
