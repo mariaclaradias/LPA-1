@@ -2,10 +2,52 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*char* checker(char frase[40], char dicionario[2000][20], int i){
+char* checker(char fraseCompleta[40], char fraseAuxiliar[40], char resultado[40], char **dicionario, int i){
+  printf("%s\n", fraseCompleta);
+  for(int j = i; j< 2000 && strcmp(dicionario[j], "") != 0; j++){
+    bool flag = true;
+    for(int k = 0; k < 20 && dicionario[j][k] != '\0' && flag == true; k++){
+      int l = 0;
+      for(l = 0; l < 40 && fraseAuxiliar[l] != '\0'; l++){
+        // printf("comparando %c com %c: ", dicionario[j][k], fraseAuxiliar[l]);
+        if(dicionario[j][k] == fraseAuxiliar[l]){
+          fraseAuxiliar[l] = ' ';
+          l = 40;
+        }
+      }
 
-  return frase;
-}*/
+      if(l != 41){
+        flag = false;
+      }
+    }
+
+    if(flag == true){
+      printf("\tconcatenando %s a %s\n", dicionario[j], resultado);
+      char aux[20];
+      strcpy(aux, dicionario[j]);
+      aux[strlen(dicionario[j]) - 1] = '\0';
+      strcat(resultado, aux);
+      int tam1 = strlen(fraseCompleta);
+      int tam2 = strlen(resultado);
+
+      if(tam1 - 1 == tam2){
+        printf("%s = %s\n", fraseCompleta, resultado);
+        return NULL;
+      }else{
+        char novaFraseAuxiliar[40];
+        strcpy(novaFraseAuxiliar, fraseAuxiliar);
+        char novoResultado[40];
+        strcpy(novoResultado, resultado);
+
+        checker(fraseCompleta, novaFraseAuxiliar, novoResultado, dicionario, j + 1);
+      }
+    }else{
+      return NULL;
+    }
+  }
+
+  return NULL;
+}
 
 char** novoDicionario1(char **dicionario, char frase[40]){
   char **novoDicionario = new char*[2000];
@@ -95,15 +137,22 @@ int main(){
     strcat(frase, input);
     char **novoDic = novoDicionario(dicionario, frase);
 
-    for(int i = 0; i < 2000 && strcmp(novoDic[i], "") != 0; i++){
-      printf("%s\n", novoDic[i]);
-    }
+    char resultado[40];
+    strcpy(resultado, "");
+
+    char fraseAuxiliar[40];
+    strcpy(fraseAuxiliar, frase);
+    checker(frase, fraseAuxiliar, resultado, novoDic, 0);
 
     fgets(input, 40, stdin);
   }
 }
 
 //Lixo
+
+// for(int i = 0; i < 2000 && strcmp(novoDic[i], "") != 0; i++){
+//   printf("%s\n", novoDic[i]);
+// }
 
 // for(int i = 0; i < 20 && strcmp(dicionario[i], "") != 0; i++){
 //   printf("%s\n", dicionario[i]);
