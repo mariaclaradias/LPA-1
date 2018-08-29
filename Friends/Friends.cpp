@@ -50,7 +50,7 @@ void GraphInsertArc(Graph G, vertex v, vertex w, int weight){
 
 int count(Graph G, vertex v, int numP){
   int resultado = 0;
-  for(int i = v + 1; i < numP; i++){
+  for(int i = 0; i < numP; i++){
     if(G->adj[v][i] == 1 && G->visited[i] == 0){
       G->visited[i] = 1;
       resultado = resultado + 1 + count(G, i, numP);
