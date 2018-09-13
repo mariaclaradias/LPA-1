@@ -62,7 +62,7 @@ int count(Graph G, vertex v, int numP){
 
 int main(){
   int numTest;
-  scanf("%d\n", &numTest);
+  scanf("%d", &numTest);
 
   for(int i = 0; i < numTest; i++){
     int numP;
