@@ -18,8 +18,7 @@ while linha != "0 0":
         linha = input()
         intersecao1, intersecao2, altitude = linha.split(" ")
 
-        G.add_edge(intersecao1, intersecao2)
-        G[intersecao1][intersecao2]['weight'] = int(altitude)
+        G.add_edge(intersecao1, intersecao2, weight = int(altitude))
 
     numPares = int(input())
 
